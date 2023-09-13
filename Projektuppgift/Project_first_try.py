@@ -1,6 +1,13 @@
 import numpy as np
-import pymc3 as pm
+import pandas as pd
 import matplotlib.pyplot as plt
+
+df = pd.read_csv("Datafil.csv")
+mean_score_run_1 = np.mean(df["run 1"])
+print(mean_score_run_1)
+#Normalise paths
+
+
 
 def run_bayesian_analysis():
     # Define the model
