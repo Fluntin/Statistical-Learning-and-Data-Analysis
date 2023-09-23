@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import csv
+
 def run_test():
     # Loading the dataset from a CSV file into a DataFrame
     df = pd.read_csv("Datafil.csv")
@@ -54,7 +55,7 @@ def run_test():
 
 df = pd.read_csv("Datafil.csv")
 
-
+# a) Here I normaise all of my data and create a separate file.
 def normalize_scores(input_file, output_file):
     with open(input_file, "r") as infile, open(output_file, "w", newline='') as outfile:
         reader = csv.reader(infile)
@@ -70,10 +71,87 @@ def normalize_scores(input_file, output_file):
                 if row[i]:  # Check if cell is not empty
                     row[i] = str(float(row[i]) / 10)
             writer.writerow(row)
+            
+# b) here i create a histogram fr normalized data
+def plot_histograms(datafile):
+    # Read the normalized data
+    df = pd.read_csv(datafile)
 
-# Use the function
-# First, save your data to a file named "input_data.csv"
+    # List of tricks
+    tricks = ["trick 1", "trick 2", "trick 3", "trick 4"]
+
+    # Plot histograms for each trick
+    for idx, trick in enumerate(tricks, 1):
+        plt.subplot(2, 2, idx)  # 2x2 grid of histograms
+        plt.hist(df[trick].dropna(), bins=20, alpha=0.7, color='blue')  # dropna() ensures NaN values are ignored
+        plt.title(f"Histogram of {trick}")
+        plt.xlabel("Score")
+        plt.ylabel("Frequency")
+
+    # Adjust layout to prevent overlaps and show the plot
+    plt.tight_layout()
+    plt.show()
+
+# c) Now we create make_it for each trick 1-4
+def add_make_columns(datafile):
+    # Read the data
+    df = pd.read_csv(datafile)
+    
+    # Loop through each trick column
+    for i in range(1, 4):
+        trick_column = f"trick {i}"
+        
+        # Assuming a trick is executed if its score > 0
+        df[f"make {i}"] = df[trick_column].apply(lambda x: 1 if x > 0 else 0)
+        
+    # Save the modified dataframe back to the same CSV file (or to a new file if desired)
+    df.to_csv(datafile, index=False)
+
+
+# d) Given that they make a trick estimae the probability of them getting a score thats higher then 0.6
+def estimate_probabilities(datafile):
+    df = pd.read_csv(datafile)
+    
+    # Antag att varje rad representerar en skateboardåkare
+    results = []
+    for index, row in df.iterrows():
+        tricks = [f"trick {i}" for i in range(1, 4)]
+        
+        # Count the amount of sucessfull and unsuccessful trick.
+        successful_tricks = sum(1 for trick in tricks if row[trick] !=0)
+        unsuccessful_tricks = sum(1 for trick in tricks if row[trick] == 0)
+        
+        # Count the amount of sucessfull scored more than 0.6
+        more_than=sum(1 for trick in tricks if row[trick] >=0.6)
+        
+        # Use the avarage to judge the probability
+        prob_success = more_than / (successful_tricks)
+        prob_failure = 1 - prob_success
+        
+        results.append((index, prob_success, prob_failure))
+    
+    return results
+
+probabilities = estimate_probabilities("Datafil_normalized.csv")
+for index, success, failure in probabilities:
+    print(f"Skateboardåkare {index+1}: P(success) = {success:.2f}, P(failure) = {failure:.2f}")
+
+# a) First, normalise and save your data "Liam said its cirrect"
 normalize_scores("Datafil.csv", "Datafil_normalized.csv")
+
+# b) Plot histograms for trick 1 to 4 "Liam said its cirrect"
+plot_histograms("Datafil_normalized.csv")
+
+# c) Now we create make_it for each trick 1-4
+add_make_columns("Datafil_normalized.csv")
+
+# d) Given that they make a trick estimae the probability of them getting a score thats higher then 0.6
+
+# Mozes koristiti aritmeticku sredinu...
+# Ptrea je koristila medelvärde kao skattning za theta.
+
+
+
 
 
 
