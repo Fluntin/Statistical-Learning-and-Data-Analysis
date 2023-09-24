@@ -1,7 +1,5 @@
 # SF1930 Statistical Learning and Data Analysis, Fall 2023 Project
 
-## 1. Introduction
-
 This project aims to build a model to predict the competitors in the season finale of a particular sports competition: the 2022 Street League Skateboarding (SLS) Super Crown Championship. The event consists of a last-chance qualifier (LCQ) and the final. There are eight spots in the final. Four skateboarders have already qualified based on their performance throughout the season. These, given by their surnames, are:
 
 ```
