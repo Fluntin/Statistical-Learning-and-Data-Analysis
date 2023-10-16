@@ -1,2 +1,0 @@
-Mode: ('Eaton', 'Gustavo', 'Shirai', 'Jordan'), count 21
-Skattade sannolikheten för specifika: 0.0014
