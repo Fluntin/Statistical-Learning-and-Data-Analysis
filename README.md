@@ -4,9 +4,9 @@
 
 This project aims to build a model to predict the competitors in the season finale of a particular sports competition, namely the 2022 Street League Skateboarding (SLS) Super Crown Championship. The event consists of a last-chance qualifying competition (Last Chance Qualifier or LCQ) and the final. There are eight spots in the final. Four skateboarders have already qualified based on their performance throughout the season. These, given by last names, are:
 
-$$
+$
 \text { Horigome Joslin Milou Ribeiro G. }
-$$
+$
 
 The LCQ has sixteen competitors, and the four skateboarders with the highest scores win the remaining four spots in the final. The skateboarders competing in the LCQ (given by last names) are:
 
@@ -57,11 +57,11 @@ Solve the following tasks and record your solutions in a PDF file in the form of
 
 2. A frequentist model. We would like to build a model that can predict which of the 16 skateboarders in the LCQ will earn a spot in the final. One way to do this is to build a model for each skateboarder, use the models to simulate run scores and trick scores for each skateboarder, and combine the simulations to simulate the LCQ. We can simulate multiple LCQs and extract the four skateboarders with the highest total scores from each one. Our prediction will be the mode of these results. Note that this model assumes that the skateboarders' performances are independent. For simplicity, we assume that the score on a particular run $Y_{i}$ and the score on a particular trick $X_{i}$ are independent for each skateboarder $i$. We also assume that all trick scores and run scores are independent and identically distributed outcomes from $X_{i}$ and $Y_{i}$. We can start by specifying a model for $X_{i}$ and $Y_{i}$ based on the observations in Task 1:
 
-   $$ X_{i}= \begin{cases}0 & \text { if } V_{i}=0, \\ Z_{i} & \text { if } V_{i}=1, \end{cases} $$
+   $ X_{i}= \begin{cases}0 & \text { if } V_{i}=0, \\ Z_{i} & \text { if } V_{i}=1, \end{cases} $
 
    where $V_{i} \sim \text{Ber}(\theta_{i})$, $Z_{i} \sim \text{Beta}(\alpha_{i}, \beta_{i})$, and $V_{i} \perp Z_{i}$. It can be shown that
 
-   $$ f_{X_{i}}(x_{i} | \theta_{i}, \alpha_{i}, \beta_{i}) = (1-\theta_{i}) \mathbf{1}_{x_{i}=0}+\theta_{i} f_{Z_{i}}(z_{i}). $$
+   $ f_{X_{i}}(x_{i} | \theta_{i}, \alpha_{i}, \beta_{i}) = (1-\theta_{i}) \mathbf{1}_{x_{i}=0}+\theta_{i} f_{Z_{i}}(z_{i}). $
 
    (a) Provide a point estimate for each $\theta_{i}$, the probability that skateboarder $i$ lands a trick.
 
@@ -79,15 +79,15 @@ Solve the following tasks and record your solutions in a PDF file in the form of
 
    (b) Generate 5000 random samples from the posterior distribution
 
-   $$ f_{\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{x}_{i}). $$
+   $ f_{\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{x}_{i}). $
 
    Plot your resulting samples for the marginal posterior distributions:
 
-   $$ f_{\theta_{i} | \boldsymbol{X}_{i}}(\theta_{i} | \boldsymbol{x}_{i}) $$
+   $ f_{\theta_{i} | \boldsymbol{X}_{i}}(\theta_{i} | \boldsymbol{x}_{i}) $
 
    and
 
-   $$ f_{\alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\alpha_{i}, \beta_{i} | \boldsymbol{x}_{i}). $$
+   $ f_{\alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\alpha_{i}, \beta_{i} | \boldsymbol{x}_{i}). $
 
    Calculate the posterior sample mean and posterior sample variance for each parameter $\theta_{i}$, $\alpha_{i}$, and $\beta_{i}$ for all skateboarders.
 
@@ -99,11 +99,11 @@ right]^{T}$ to simulate 5000 LCQs by drawing samples from the appropriate poster
 
    (e) In the model in Task 3(d), we assumed that the parameters $\boldsymbol{\Upsilon}_{i}$ for $Y_{i}$ and the parameters $\boldsymbol{\Theta}_{i}=\left[\Theta_{i}, A_{i}, B_{i}\right]^{T}$ for $X_{i}$ are independent given data (why?). At the same time, we did not assume that $\Theta_{i} \perp A_{i}, B_{i}$ are independent given data. Let $X_{i}^{(1)}, X_{i}^{(2)}, X_{i}^{(3)}, X_{i}^{(4)}$ denote skateboarder $i$'s four trick scores, let $Y_{i}^{(1)}, Y_{i}^{(2)}$ denote skateboarder $i$'s two run scores, and let $O_{i}$ denote their total score. Draw a directed acyclic graph with as few edges as possible so that the joint distribution for $O_{i}, X_{i}^{(1)}, X_{i}^{(2)}, X_{i}^{(3)}, X_{i}^{(4)}, Y_{i}^{(1)}, Y_{i}^{(2)}, \Theta_{i}, A_{i}, B_{i}$, and $\Upsilon$ is Markov with respect to it. Based on your graph, can you conclude that the marginal posterior distribution for $\Theta_{i}, A_{i}$, and $B_{i}$ factorizes as
 
-   $$ f_{\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{x}_{i}) = f_{\theta_{i} | \boldsymbol{X}_{i}}(\theta_{i} | \boldsymbol{x}_{i}) f_{\alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\alpha_{i}, \beta_{i} | \boldsymbol{x}_{i})? $$
+   $ f_{\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\theta_{i}, \alpha_{i}, \beta_{i} | \boldsymbol{x}_{i}) = f_{\theta_{i} | \boldsymbol{X}_{i}}(\theta_{i} | \boldsymbol{x}_{i}) f_{\alpha_{i}, \beta_{i} | \boldsymbol{X}_{i}}(\alpha_{i}, \beta_{i} | \boldsymbol{x}_{i})? $
 
    Considering your parameters $\boldsymbol{\Upsilon}_{i}$ for $Y_{i}$ and the parameters $\boldsymbol{\Theta}_{i}$ for $X_{i}$, does our assumption that
 
-   $$ \boldsymbol{\Upsilon}_{i} \perp \boldsymbol{\Theta}_{i} | X_{i}^{(1)}, X_{i}^{(2)}, X_{i}^{(3)}, X_{i}^{(4)}, Y_{i}^{(1)}, Y_{i}^{(2)} $$
+   $ \boldsymbol{\Upsilon}_{i} \perp \boldsymbol{\Theta}_{i} | X_{i}^{(1)}, X_{i}^{(2)}, X_{i}^{(3)}, X_{i}^{(4)}, Y_{i}^{(1)}, Y_{i}^{(2)} $
 
    make sense? Can we assume the independence $\boldsymbol{\Upsilon}_{i} \perp \boldsymbol{\Theta}_{i} | O_{i}$ if only the data $o_{i}$ is given instead?
 
@@ -113,15 +113,15 @@ right]^{T}$ to simulate 5000 LCQs by drawing samples from the appropriate poster
 
    (b) Generate 5000 random samples from the joint posterior distribution
 
-   $$ f_{A_{i}, B_{i} | \boldsymbol{X}_{i}}(a_{i}, b_{i} | \boldsymbol{x}_{i}). $$
+   $ f_{A_{i}, B_{i} | \boldsymbol{X}_{i}}(a_{i}, b_{i} | \boldsymbol{x}_{i}). $
 
    Use your simulations to generate 5000 random samples from the marginal posterior distribution $\Theta_{i} | \boldsymbol{X}_{i}=\boldsymbol{x}_{i}$. Make plots with your samples for the following posterior distributions:
 
-   $$ f_{\theta_{i} | \boldsymbol{X}_{i}}(\theta_{i} | \boldsymbol{x}_{i}) $$
+   $ f_{\theta_{i} | \boldsymbol{X}_{i}}(\theta_{i} | \boldsymbol{x}_{i}) $
 
    and
 
-   $$ f_{A_{i}, B_{i} | \boldsymbol{X}_{i}}(a_{i}, b_{i} | \boldsymbol{x}_{i}). $$
+   $ f_{A_{i}, B_{i} | \boldsymbol{X}_{i}}(a_{i}, b_{i} | \boldsymbol{x}_{i}). $
 
    Provide estimates for the posterior expected values and posterior variances for each of the parameters. How do these variances for $\theta_{i}$ compare to the variances for $\theta_{i}$ calculated for the model in Task 3?
 
